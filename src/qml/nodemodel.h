@@ -30,6 +30,7 @@ class NodeModel : public QObject
     Q_PROPERTY(int remainingSyncTime READ remainingSyncTime NOTIFY remainingSyncTimeChanged)
     Q_PROPERTY(double verificationProgress READ verificationProgress NOTIFY verificationProgressChanged)
     Q_PROPERTY(bool pause READ pause WRITE setPause NOTIFY pauseChanged)
+    Q_PROPERTY(QString alert READ alert WRITE setAlert NOTIFY alertChanged)
 
 public:
     explicit NodeModel(interfaces::Node& node);
@@ -45,6 +46,10 @@ public:
     void setVerificationProgress(double new_progress);
     bool pause() const { return m_pause; }
     void setPause(bool new_pause);
+    QString alert() const { return m_alert; }
+    void setAlert(QString new_alert);
+
+		QString getStatusBarWarnings() const;
 
     Q_INVOKABLE float getTotalBytesReceived() const { return (float)m_node.getTotalBytesRecv(); }
     Q_INVOKABLE float getTotalBytesSent() const { return (float)m_node.getTotalBytesSent(); }
@@ -66,6 +71,7 @@ Q_SIGNALS:
     void requestedShutdown();
     void verificationProgressChanged();
     void pauseChanged(bool new_pause);
+    void alertChanged(QString new_alert);
 
     void setTimeRatioList(int new_time);
     void setTimeRatioListInitial();
@@ -81,6 +87,7 @@ private:
     int m_remaining_sync_time{0};
     double m_verification_progress{0.0};
     bool m_pause{false};
+    QString m_alert{false};
 
     int m_shutdown_polling_timer_id{0};
 
@@ -89,9 +96,11 @@ private:
     interfaces::Node& m_node;
     std::unique_ptr<interfaces::Handler> m_handler_notify_block_tip;
     std::unique_ptr<interfaces::Handler> m_handler_notify_num_peers_changed;
+    std::unique_ptr<interfaces::Handler> m_handler_notify_alert_changed;
 
     void ConnectToBlockTipSignal();
     void ConnectToNumConnectionsChangedSignal();
+    void ConnectToAlertChangedSignal();
 };
 
 #endif // BITCOIN_QML_NODEMODEL_H

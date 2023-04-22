@@ -23,6 +23,7 @@ Item {
     property bool connected: nodeModel.numOutboundPeers > 0
     property bool synced: nodeModel.verificationProgress > 0.999
     property bool paused: false
+    property string alerts: nodeModel.alert
 
     activeFocusOnTab: true
 
@@ -140,6 +141,24 @@ Item {
                 header: "Paused"
                 headerSize: 24
                 subText: "Tap to resume"
+            }
+            PropertyChanges {
+                target: bitcoinIcon
+                anchors.bottomMargin: 5
+            }
+            PropertyChanges {
+                target: subText
+                anchors.topMargin: 4
+            }
+        },
+
+        State {
+            name: "ALERT"; when: alert!=""
+            PropertyChanges {
+                target: root
+                header: "ALERT"
+                headerSize: 24
+                subText: nodeModel.alert
             }
             PropertyChanges {
                 target: bitcoinIcon

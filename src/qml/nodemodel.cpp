@@ -21,6 +21,7 @@ NodeModel::NodeModel(interfaces::Node& node)
 {
     ConnectToBlockTipSignal();
     ConnectToNumConnectionsChangedSignal();
+		ConnectToAlertChangedSignal();
 }
 
 void NodeModel::setBlockTipHeight(int new_height)
@@ -93,6 +94,19 @@ void NodeModel::setPause(bool new_pause)
     }
 }
 
+void NodeModel::setAlert(QString new_alert)
+{
+    if(m_alert != new_alert) {
+        m_alert = new_alert;
+        Q_EMIT alertChanged(new_alert);
+    }
+}
+
+QString NodeModel::getStatusBarWarnings() const
+{
+    return QString::fromStdString(m_node.getWarnings().translated);
+}
+
 void NodeModel::startNodeInitializionThread()
 {
     Q_EMIT requestedInitialize();
@@ -153,5 +167,15 @@ void NodeModel::ConnectToNumConnectionsChangedSignal()
     m_handler_notify_num_peers_changed = m_node.handleNotifyNumConnectionsChanged(
         [this](PeersNumByType new_num_peers) {
             setNumOutboundPeers(new_num_peers.outbound_full_relay + new_num_peers.block_relay);
+        });
+}
+
+void NodeModel::ConnectToAlertChangedSignal()
+{
+    assert(!m_handler_notify_alert_changed);
+
+		m_handler_notify_alert_changed = m_node.handleNotifyAlertChanged(
+        [this]() {
+						setAlert(getStatusBarWarnings());
         });
 }

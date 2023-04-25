@@ -75,7 +75,6 @@ Item {
         font.styleName: "Semi Bold"
         font.pixelSize: 32
         color: Theme.color.neutral9
-				clip: true
 
         Behavior on color {
             ColorAnimation { duration: 150 }
@@ -161,7 +160,7 @@ Item {
                 header: "ALERT"
                 headerSize: 24
                 subText: nodeModel.alert
-								subTextSize: 14
+                subTextSize: 14
             }
             PropertyChanges {
                 target: bitcoinIcon

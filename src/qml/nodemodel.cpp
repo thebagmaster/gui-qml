@@ -22,7 +22,7 @@ NodeModel::NodeModel(interfaces::Node& node)
 {
     ConnectToBlockTipSignal();
     ConnectToNumConnectionsChangedSignal();
-		ConnectToAlertChangedSignal();
+    ConnectToAlertChangedSignal();
 }
 
 void NodeModel::setBlockTipHeight(int new_height)
@@ -120,10 +120,10 @@ void NodeModel::requestShutdown()
 
 void NodeModel::initializeResult([[maybe_unused]] bool success, interfaces::BlockAndHeaderTipInfo tip_info)
 {
-		if(!success)
-		{
-			setAlert("Block index failed to load");
-		}
+    if(!success)
+    {
+      setAlert("Block index failed to load");
+    }
     setBlockTipHeight(tip_info.block_height);
     setVerificationProgress(tip_info.verification_progress);
 
@@ -180,8 +180,8 @@ void NodeModel::ConnectToAlertChangedSignal()
 
 		m_handler_notify_alert_changed = m_node.handleInitMessage(
         [this](const std::string& message) {
-						//TODO: Use this in detailed node stats
-						//setAlert(QString::fromStdString(message));
-						//setAlert(getStatusBarWarnings());
+            //TODO: Use this in detailed node stats
+            //setAlert(QString::fromStdString(message));
+            //setAlert(getStatusBarWarnings());
         });
 }

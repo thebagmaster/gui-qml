@@ -104,7 +104,7 @@ void NodeModel::setAlert(QString new_alert)
 
 QString NodeModel::getStatusBarWarnings() const
 {
-    return QString::fromStdString(m_node.getWarnings().translated);
+    return QString::fromStdString(m_node.getWarnings().original);
 }
 
 void NodeModel::startNodeInitializionThread()

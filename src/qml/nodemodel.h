@@ -87,7 +87,7 @@ private:
     int m_remaining_sync_time{0};
     double m_verification_progress{0.0};
     bool m_pause{false};
-    QString m_alert{false};
+    QString m_alert{""};
 
     int m_shutdown_polling_timer_id{0};
 

@@ -74,6 +74,7 @@ Item {
         font.styleName: "Semi Bold"
         font.pixelSize: 32
         color: Theme.color.neutral9
+				clip: true
 
         Behavior on color {
             ColorAnimation { duration: 150 }

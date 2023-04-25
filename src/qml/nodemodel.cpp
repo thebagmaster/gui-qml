@@ -15,6 +15,7 @@
 #include <QDateTime>
 #include <QMetaObject>
 #include <QTimerEvent>
+#include <QString>
 
 NodeModel::NodeModel(interfaces::Node& node)
     : m_node{node}
@@ -119,7 +120,10 @@ void NodeModel::requestShutdown()
 
 void NodeModel::initializeResult([[maybe_unused]] bool success, interfaces::BlockAndHeaderTipInfo tip_info)
 {
-    // TODO: Handle the `success` parameter,
+		if(!success)
+		{
+			setAlert("Block index failed to load");
+		}
     setBlockTipHeight(tip_info.block_height);
     setVerificationProgress(tip_info.verification_progress);
 
@@ -174,8 +178,10 @@ void NodeModel::ConnectToAlertChangedSignal()
 {
     assert(!m_handler_notify_alert_changed);
 
-		m_handler_notify_alert_changed = m_node.handleNotifyAlertChanged(
-        [this]() {
-						setAlert(getStatusBarWarnings());
+		m_handler_notify_alert_changed = m_node.handleInitMessage(
+        [this](const std::string& message) {
+						//TODO: Use this in detailed node stats
+						//setAlert(QString::fromStdString(message));
+						//setAlert(getStatusBarWarnings());
         });
 }

@@ -11,6 +11,7 @@
 #include <memory>
 
 #include <QObject>
+#include <QString>
 
 QT_BEGIN_NAMESPACE
 class QTimerEvent;

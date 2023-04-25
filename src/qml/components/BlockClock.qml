@@ -18,12 +18,13 @@ Item {
 
     property alias header: mainText.text
     property alias headerSize: mainText.font.pixelSize
+    property alias subTextSize: subText.font.pixelSize
     property alias subText: subText.text
     property int headerSize: 32
     property bool connected: nodeModel.numOutboundPeers > 0
     property bool synced: nodeModel.verificationProgress > 0.999
     property bool paused: false
-    property string alerts: nodeModel.alert
+    property bool faulted: nodeModel.alert != ""
 
     activeFocusOnTab: true
 
@@ -154,12 +155,13 @@ Item {
         },
 
         State {
-            name: "ALERT"; when: alert!=""
+            name: "ALERT"; when: faulted
             PropertyChanges {
                 target: root
                 header: "ALERT"
                 headerSize: 24
                 subText: nodeModel.alert
+								subTextSize: 14
             }
             PropertyChanges {
                 target: bitcoinIcon

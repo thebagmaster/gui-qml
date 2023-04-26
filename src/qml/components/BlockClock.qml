@@ -154,10 +154,10 @@ Item {
         },
 
         State {
-            name: "ALERT"; when: faulted
+            name: "ERROR"; when: faulted
             PropertyChanges {
                 target: root
-                header: "ALERT"
+                header: "Error"
                 headerSize: 24
                 subText: nodeModel.alert
                 subTextSize: 14
@@ -165,6 +165,7 @@ Item {
             PropertyChanges {
                 target: bitcoinIcon
                 anchors.bottomMargin: 5
+								icon.source: "image://images/cross"
             }
             PropertyChanges {
                 target: subText

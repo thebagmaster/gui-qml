@@ -50,7 +50,7 @@ public:
     QString alert() const { return m_alert; }
     void setAlert(QString new_alert);
 
-		QString getStatusBarWarnings() const;
+    QString getStatusBarWarnings() const;
 
     Q_INVOKABLE float getTotalBytesReceived() const { return (float)m_node.getTotalBytesRecv(); }
     Q_INVOKABLE float getTotalBytesSent() const { return (float)m_node.getTotalBytesSent(); }

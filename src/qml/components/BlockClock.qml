@@ -165,7 +165,7 @@ Item {
             PropertyChanges {
                 target: bitcoinIcon
                 anchors.bottomMargin: 5
-								icon.source: "image://images/cross"
+                icon.source: "image://images/cross"
             }
             PropertyChanges {
                 target: subText

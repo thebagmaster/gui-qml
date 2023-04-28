@@ -74,7 +74,7 @@ ApplicationWindow {
         id: shutdown
         Shutdown {}
     }
-
+    
     Component {
         id: node
         SwipeView {
@@ -100,6 +100,24 @@ ApplicationWindow {
                     onClicked: node_swipe.decrementCurrentIndex()
                 }
             }
+        }
+    }
+
+    ColumnLayout {
+        width: parent.width
+        visible: nodeModel.alert != ""
+        anchors {
+          horizontalCenter: parent.horizontalCenter
+          bottom: parent.bottom
+          bottomMargin: 50
+        }
+        NavButton {
+            id: details
+            text: qsTr("View error details")
+            textBold: false
+            border: true
+            Layout.alignment: Qt.AlignHCenter 
+            width: parent.width
         }
     }
 }

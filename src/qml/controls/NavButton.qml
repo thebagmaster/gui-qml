@@ -10,7 +10,9 @@ AbstractButton {
     id: root
     property int iconHeight: 30
     property int iconWidth: 30
+    property bool border: false
     property int textSize: 18
+    property bool textBold: true
     property url iconSource: ""
     property Rectangle iconBackground: null
     property color iconColor: Theme.color.neutral9
@@ -23,6 +25,9 @@ AbstractButton {
         id: bg
         height: root.height
         width: root.width
+        border.width: (root.border)?1:0
+        border.color: Theme.color.neutral6
+        color: "transparent"
         radius: 5
         state:"DEFAULT"
 
@@ -84,7 +89,7 @@ AbstractButton {
                 leftPadding: button_background.active ? 0 : 20
                 contentItem: CoreText {
                     anchors.verticalCenter: parent.verticalCenter
-                    bold: true
+                    bold: root.textBold
                     font.pixelSize: root.textSize
                     color: Theme.color.neutral9
                     text: root.text

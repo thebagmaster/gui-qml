@@ -108,8 +108,7 @@ Item {
         anchors.fill: dial
         cursorShape: Qt.PointingHandCursor
         onClicked: {
-            root.paused = !root.paused
-            nodeModel.pause = root.paused
+          handleClick()
         }
         FocusBorder {
             visible: root.activeFocus
@@ -136,7 +135,7 @@ Item {
         },
 
         State {
-            name: "PAUSE"; when: paused
+            name: "PAUSE"; when: paused && !faulted
             PropertyChanges {
                 target: root
                 header: "Paused"
@@ -159,13 +158,12 @@ Item {
                 target: root
                 header: "Error"
                 headerSize: 24
-                subText: nodeModel.alert
-                subTextSize: 14
+                subText: "Tap for details"
             }
             PropertyChanges {
                 target: bitcoinIcon
                 anchors.bottomMargin: 5
-                icon.source: "image://images/cross"
+                icon.source: "image://images/error"
             }
             PropertyChanges {
                 target: subText
@@ -191,6 +189,15 @@ Item {
             }
         }
     ]
+
+    function handleClick() {
+        if (!faulted) {
+            root.paused = !root.paused
+            nodeModel.pause = root.paused
+        } else {
+            //TODO: Show Details Popup
+        }
+    }
 
     function formatProgressPercentage(progress) {
         if (progress >= 1) {

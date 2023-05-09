@@ -23,9 +23,11 @@ Item {
     property int headerSize: 32
     property bool connected: nodeModel.numOutboundPeers > 0
     property bool synced: nodeModel.verificationProgress > 0.999
-    property bool paused: false
+    property bool paused: nodeModel.pause
     property bool faulted: nodeModel.alert != ""
-
+    
+    property var showPopup: null
+    
     activeFocusOnTab: true
 
     BlockClockDial {
@@ -190,14 +192,6 @@ Item {
         }
     ]
 
-    function handleClick() {
-        if (!faulted) {
-            root.paused = !root.paused
-            nodeModel.pause = root.paused
-        } else {
-            //TODO: Show Details Popup
-        }
-    }
 
     function formatProgressPercentage(progress) {
         if (progress >= 1) {

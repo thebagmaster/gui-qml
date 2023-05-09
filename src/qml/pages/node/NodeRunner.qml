@@ -9,9 +9,13 @@ import "../../controls"
 import "../../components"
 
 Page {
+    id: noderunner
     background: null
     clip: true
     property alias navRightDetail: navbar.rightDetail
+
+    signal showPopup()
+
     header: NavigationBar {
         id: navbar
     }
@@ -23,9 +27,18 @@ Page {
         anchors.centerIn: parent
         BlockClock {
             Layout.alignment: Qt.AlignCenter
+            showPopup: noderunner.showPopup
         }
         NetworkIndicator {
             Layout.alignment: Qt.AlignCenter
+        }
+    }
+    
+    function handleClick() {
+        if (!nodeModel.alert != "") {
+            nodeModel.pause = !nodeModel.pause
+        } else {
+            showPopup()
         }
     }
 }

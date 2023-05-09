@@ -19,7 +19,7 @@ ApplicationWindow {
     minimumHeight: 665
     color: Theme.color.background
     visible: true
-
+        
     Settings {
         property alias x: appWindow.x
         property alias y: appWindow.y
@@ -88,6 +88,10 @@ ApplicationWindow {
                     iconWidth: 24
                     onClicked: node_swipe.incrementCurrentIndex()
                 }
+                onShowPopup:()=>{
+                  node_swipe.moveItem(2,1);
+                  node_swipe.incrementCurrentIndex();
+                }
             }
             NodeSettings {
                 navMiddleDetail: Header {
@@ -100,16 +104,22 @@ ApplicationWindow {
                     onClicked: node_swipe.decrementCurrentIndex()
                 }
             }
+            Popup {
+                onHidePopup:()=>{
+                  node_swipe.setCurrentIndex(0);
+                  node_swipe.moveItem(1,2);
+                }
+            }
         }
     }
-
+    
     ColumnLayout {
         width: parent.width
-        visible: nodeModel.alert != ""
+        visible: false
         anchors {
-          horizontalCenter: parent.horizontalCenter
-          bottom: parent.bottom
-          bottomMargin: 50
+            horizontalCenter: parent.horizontalCenter
+            bottom: parent.bottom
+            bottomMargin: 50
         }
         NavButton {
             id: details
@@ -120,4 +130,5 @@ ApplicationWindow {
             width: parent.width
         }
     }
+
 }
